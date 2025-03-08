@@ -3,4 +3,7 @@
     <string name="find">I am finding Labour 🔎!</string>
     <string name="become_manager">I Want to become a Manager 🧑‍💼!</string>
     <string name="work_as_labour">I want to Work 💼!</string>
+    <string name = "login_screen">Login Screen</string>">
+    <string name = "login">Login</string>
+    <string name = "greeting">Welcome to FindLabour!</string>
 </resources>

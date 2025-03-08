@@ -43,23 +43,26 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FindLabourTheme {
-                // Create the NavController here
                 val navController = rememberNavController()
-                // Pass the NavController to the navigation setup
                 AppNavigation(navController)
             }
         }
     }
 }
 
+// Define navigation routes as constants
+object AppDestinations {
+    const val WELCOME = "welcome"
+    const val SIGNUP = "signup"
+}
+
 @Composable
 fun AppNavigation(navController: NavHostController) {
-    // set up NavHost here, don't call composable to show any view
-    NavHost(navController = navController, startDestination = "welcome") {
-        composable("welcome") {
+    NavHost(navController = navController, startDestination = AppDestinations.WELCOME) {
+        composable(AppDestinations.WELCOME) {
             WelcomeScreen(navController)
         }
-        composable("signup") {
+        composable(AppDestinations.SIGNUP) {
             SignUpScreen()
         }
     }
@@ -73,7 +76,7 @@ fun WelcomeScreen(navController: NavHostController) {
             TopAppBar(
                 title = {
                     Text(
-                        "Login Screen",
+                        stringResource(R.string.login_screen), // Use string resource for better i18n
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
                     )
@@ -87,53 +90,58 @@ fun WelcomeScreen(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding), // Apply padding here
+                .padding(innerPadding)
+                .padding(horizontal = 16.dp), // Add horizontal padding to the column
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(14.dp))
+            Spacer(modifier = Modifier.height(24.dp)) // increased space
             Box {
                 Image(
                     painter = painterResource(R.drawable.circle),
-                    contentDescription = "Login",
+                    contentDescription = stringResource(R.string.login),// Use string resource for better a11y
                     modifier = Modifier
                         .clip(CircleShape)
                         .size(180.dp)
                 )
                 Image(
                     painter = painterResource(R.drawable.welcome),
-                    contentDescription = "Greeting",
+                    contentDescription = stringResource(R.string.greeting),// Use string resource for better a11y
                     modifier = Modifier.size(180.dp)
                 )
             }
-            ChoosingButton(navController, stringResource(R.string.find))
-            ChoosingButton(navController, stringResource(R.string.become_manager))
-            ChoosingButton(navController, stringResource(R.string.work_as_labour))
+            Spacer(modifier = Modifier.height(32.dp)) // Increased space
+
+            val titles = listOf(
+                R.string.find,
+                R.string.become_manager,
+                R.string.work_as_labour
+            )
+            titles.forEach { titleResId ->
+                ChoosingButton(navController, stringResource(titleResId))
+            }
         }
     }
 }
 
 @Composable
 private fun ChoosingButton(navController: NavHostController, brief: String) {
-    Spacer(modifier = Modifier.height(14.dp))
     OutlinedButton(
         onClick = {
-            // Navigate to the "login" screen
-            navController.navigate("signup")
-        }, modifier = Modifier
+            navController.navigate(AppDestinations.SIGNUP)
+        },
+        modifier = Modifier
             .fillMaxWidth()
-            .size(48.dp)
-            .padding(horizontal = 40.dp)
+            .height(48.dp) // Use height instead of size when you want to control just the height.
     ) {
         Text(brief)
     }
-    Spacer(modifier = Modifier.height(8.dp))
+    Spacer(modifier = Modifier.height(16.dp)) // Increased spacing
 }
 
 @Preview(showBackground = true, showSystemUi = true, device = Devices.PIXEL_7_PRO)
 @Composable
 fun GreetingPreview() {
     FindLabourTheme {
-        // You need to wrap this with navigation for preview to work.
         val navController = rememberNavController()
         AppNavigation(navController)
     }

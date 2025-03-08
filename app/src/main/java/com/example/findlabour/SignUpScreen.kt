@@ -42,101 +42,116 @@ import androidx.compose.ui.unit.sp
 fun SignUpScreen() {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        "Login Screen",
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center,
-                    )
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF004aad),
-                    titleContentColor = Color.White
-                )
-            )
-        }) { innerPadding ->
-        Column(
-            modifier = Modifier
-                //remove inner padding to not apply the padding from scaffold
-                .fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(modifier = Modifier.height(14.dp))
-            // add padding to make it like before and not touching the borders
-            Box(modifier = Modifier.padding(innerPadding)) {
-                Image(
-                    painter = painterResource(R.drawable.circle),
-                    contentDescription = "Login",
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .size(180.dp)
-                )
-                Image(
-                    painter = painterResource(R.drawable.signup),
-                    contentDescription = "Greeting",
-                    alignment = Alignment.Center,
-                    modifier = Modifier.size(180.dp)
-                )
-                Spacer(modifier = Modifier.height(14.dp))
-            }
-            Text(
-                "Create an Account",
-                fontSize = MaterialTheme.typography.headlineLarge.fontSize,
-            )
-            val state = rememberScrollState()
-            Column(
-                modifier = Modifier.verticalScroll(state),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Spacer(modifier = Modifier.height(14.dp))
-                InputButton("Name")
-
-                Spacer(modifier = Modifier.height(14.dp))
-                InputButton("Phone Number")
-
-                Spacer(modifier = Modifier.height(14.dp))
-                InputButton("Email")
-
-                Spacer(modifier = Modifier.height(14.dp))
-                InputButton("Password")
-
-                Spacer(modifier = Modifier.height(14.dp))
-
-                Button(
-                    onClick = {},
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .size(48.dp)
-                        .padding(horizontal = 40.dp),
-                    colors = ButtonDefaults.buttonColors(Color(0xFF004aad))
-                ) {
-                    Text("Sign Up", fontSize = 20.sp)
-                }
-            }
+            SignUpTopAppBar()
         }
+    ) { innerPadding ->
+        SignUpContent(innerPadding)
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SignUpTopAppBar() {
+    TopAppBar(
+        title = {
+            Text(
+                "Sign Up",
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+            )
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = Color(0xFF004aad),
+            titleContentColor = Color.White
+        )
+    )
+}
 
 @Composable
-private fun InputButton(title: String) {
+fun SignUpContent(innerPadding: androidx.compose.foundation.layout.PaddingValues) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(innerPadding),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(24.dp)) // Increased spacing
+        ProfileImageSection()
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            "Create an Account",
+            style = MaterialTheme.typography.headlineLarge, // Use style instead of fontSize
+        )
+        Spacer(modifier = Modifier.height(24.dp))
+
+        val state = rememberScrollState()
+        Column(
+            modifier = Modifier
+                .weight(1f) //take remaining space
+                .verticalScroll(state),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            val inputFields = listOf("Name", "Phone Number", "Email", "Password")
+            inputFields.forEach { title ->
+                InputTextField(title = title)
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+            Spacer(modifier = Modifier.height(24.dp))
+        }
+        SignUpButton()
+        Spacer(modifier = Modifier.height(16.dp))
+    }
+}
+
+@Composable
+private fun ProfileImageSection() {
+    Box(contentAlignment = Alignment.Center) {
+        Image(
+            painter = painterResource(R.drawable.circle),
+            contentDescription = "Profile Background",
+            modifier = Modifier
+                .clip(CircleShape)
+                .size(180.dp)
+        )
+        Image(
+            painter = painterResource(R.drawable.signup),
+            contentDescription = "Profile",
+            modifier = Modifier.size(120.dp) // Reduced size for visual hierarchy
+        )
+    }
+}
+
+@Composable
+private fun InputTextField(title: String) {
     var inputText by remember { mutableStateOf("") }
-    Text(
-        text = title,
-        fontSize = 20.sp,
+    Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 40.dp)) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.bodyMedium, // Use style instead of fontSize
+        )
+        Spacer(Modifier.height(8.dp)) // Reduced spacing
+        OutlinedTextField(
+            value = inputText,
+            onValueChange = { inputText = it },
+            shape = CircleShape,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+
+}
+
+@Composable
+private fun SignUpButton() {
+    Button(
+        onClick = { /*  */ },
         modifier = Modifier
             .fillMaxWidth()
+            .height(48.dp)
             .padding(horizontal = 40.dp),
-    )
-    Spacer(Modifier.height(16.dp))
-    OutlinedTextField(
-        value = inputText,
-        onValueChange = {inputText = it},
-        shape = CircleShape,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 40.dp)
-    )
+        colors = ButtonDefaults.buttonColors(Color(0xFF004aad))
+    ) {
+        Text("Sign Up", fontSize = 16.sp) // Reduced font size
+    }
 }
 
 @Preview(showBackground = true, showSystemUi = true, device = Devices.PIXEL_7_PRO)
