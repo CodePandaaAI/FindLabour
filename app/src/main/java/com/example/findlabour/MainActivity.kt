@@ -19,11 +19,14 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -74,7 +77,12 @@ fun WelcomeScreen(navController: NavHostController) {
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
                     )
-                })
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color(0xFF004aad),
+                    titleContentColor = Color.White
+                )
+            )
         }) { innerPadding ->
         Column(
             modifier = Modifier
@@ -82,43 +90,43 @@ fun WelcomeScreen(navController: NavHostController) {
                 .padding(innerPadding), // Apply padding here
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(modifier = Modifier.height(14.dp))
             Box {
                 Image(
                     painter = painterResource(R.drawable.circle),
                     contentDescription = "Login",
                     modifier = Modifier
                         .clip(CircleShape)
-                        .size(200.dp)
+                        .size(180.dp)
                 )
                 Image(
                     painter = painterResource(R.drawable.welcome),
                     contentDescription = "Greeting",
-                    modifier = Modifier.size(200.dp)
+                    modifier = Modifier.size(180.dp)
                 )
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            OutlinedButton(onClick = {
-                // Navigate to the "login" screen
-                navController.navigate("signup")
-            }) {
-                Text("I am finding Labour \uD83D\uDD0E!")
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            OutlinedButton(onClick = {
-                // Navigate to the "login" screen
-                navController.navigate("signup")
-            }) {
-                Text("I Want to become a Manager \uD83E\uDDD1\u200D\uD83D\uDCBC!")
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            OutlinedButton(onClick = {
-                // Navigate to the "login" screen
-                navController.navigate("signup")
-            }) {
-                Text("I want to Work \uD83D\uDCBC!")
-            }
+            ChoosingButton(navController, stringResource(R.string.find))
+            ChoosingButton(navController, stringResource(R.string.become_manager))
+            ChoosingButton(navController, stringResource(R.string.work_as_labour))
         }
     }
+}
+
+@Composable
+private fun ChoosingButton(navController: NavHostController, brief: String) {
+    Spacer(modifier = Modifier.height(14.dp))
+    OutlinedButton(
+        onClick = {
+            // Navigate to the "login" screen
+            navController.navigate("signup")
+        }, modifier = Modifier
+            .fillMaxWidth()
+            .size(48.dp)
+            .padding(horizontal = 40.dp)
+    ) {
+        Text(brief)
+    }
+    Spacer(modifier = Modifier.height(8.dp))
 }
 
 @Preview(showBackground = true, showSystemUi = true, device = Devices.PIXEL_7_PRO)
