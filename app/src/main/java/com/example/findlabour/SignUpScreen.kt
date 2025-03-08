@@ -3,8 +3,10 @@ package com.example.findlabour
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -56,9 +58,16 @@ fun SignUpScreen() {
                     alignment = Alignment.Center,
                     modifier = Modifier.size(200.dp)
                 )
+                Spacer(modifier = Modifier.height(16.dp))
+                UserInput()
             }
         }
     }
+}
+
+@Composable
+fun UserInput() {
+
 }
 
 @Preview
