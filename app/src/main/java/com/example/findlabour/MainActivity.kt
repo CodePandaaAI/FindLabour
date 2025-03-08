@@ -90,7 +90,7 @@ fun WelcomeScreen(navController: NavHostController) {
                         .size(200.dp)
                 )
                 Image(
-                    painter = painterResource(R.drawable.welcome),
+                    painter = painterResource(R.drawable.welcome__1_),
                     contentDescription = "Greeting",
                     modifier = Modifier.size(200.dp)
                 )
