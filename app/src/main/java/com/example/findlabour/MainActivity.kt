@@ -85,15 +85,14 @@ fun WelcomeScreen(navController: NavHostController) {
                 Image(
                     painter = painterResource(R.drawable.circle_with_blue_border),
                     contentDescription = "Login",
-                    alignment = Alignment.Center,
                     modifier = Modifier
                         .clip(CircleShape)
-                        .size(250.dp)
+                        .size(200.dp)
                 )
                 Image(
                     painter = painterResource(R.drawable.welcome),
                     contentDescription = "Greeting",
-                    modifier = Modifier.clip(CircleShape).size(200.dp)
+                    modifier = Modifier.size(200.dp)
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
