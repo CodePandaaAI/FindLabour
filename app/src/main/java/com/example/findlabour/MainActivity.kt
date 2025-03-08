@@ -87,12 +87,12 @@ fun WelcomeScreen(navController: NavHostController) {
                     contentDescription = "Login",
                     modifier = Modifier
                         .clip(CircleShape)
-                        .size(250.dp)
+                        .size(200.dp)
                 )
                 Image(
                     painter = painterResource(R.drawable.welcome),
                     contentDescription = "Greeting",
-                    modifier = Modifier.size(250.dp)
+                    modifier = Modifier.size(200.dp)
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
