@@ -84,7 +84,7 @@ fun WelcomeScreen(navController: NavHostController) {
         ) {
             Box {
                 Image(
-                    painter = painterResource(R.drawable.circle_with_blue_border),
+                    painter = painterResource(R.drawable.circle),
                     contentDescription = "Login",
                     modifier = Modifier
                         .clip(CircleShape)

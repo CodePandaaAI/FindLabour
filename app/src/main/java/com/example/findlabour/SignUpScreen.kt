@@ -47,7 +47,7 @@ fun SignUpScreen() {
             // add padding to make it like before and not touching the borders
             Box(modifier = Modifier.padding(innerPadding)) {
                 Image(
-                    painter = painterResource(R.drawable.circle_with_blue_border),
+                    painter = painterResource(R.drawable.circle),
                     contentDescription = "Login",
                     modifier = Modifier
                         .clip(CircleShape)
