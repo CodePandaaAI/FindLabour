@@ -101,12 +101,12 @@ fun WelcomeScreen(navController: NavHostController) {
                     contentDescription = stringResource(R.string.login),// Use string resource for better a11y
                     modifier = Modifier
                         .clip(CircleShape)
-                        .size(180.dp)
+                        .size(120.dp)
                 )
                 Image(
                     painter = painterResource(R.drawable.welcome),
                     contentDescription = stringResource(R.string.greeting),// Use string resource for better a11y
-                    modifier = Modifier.size(180.dp)
+                    modifier = Modifier.size(120.dp)
                 )
             }
             Spacer(modifier = Modifier.height(32.dp)) // Increased space

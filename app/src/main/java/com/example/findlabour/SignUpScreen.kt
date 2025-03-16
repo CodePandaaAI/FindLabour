@@ -111,12 +111,12 @@ private fun ProfileImageSection() {
             contentDescription = "Profile Background",
             modifier = Modifier
                 .clip(CircleShape)
-                .size(180.dp)
+                .size(120.dp)
         )
         Image(
             painter = painterResource(R.drawable.signup),
             contentDescription = "Profile",
-            modifier = Modifier.size(120.dp) // Reduced size for visual hierarchy
+            modifier = Modifier.size(120.dp)
         )
     }
 }
@@ -124,7 +124,9 @@ private fun ProfileImageSection() {
 @Composable
 private fun InputTextField(title: String) {
     var inputText by remember { mutableStateOf("") }
-    Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 40.dp)) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 40.dp)) {
         Text(
             text = title,
             style = MaterialTheme.typography.bodyMedium, // Use style instead of fontSize
